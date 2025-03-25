@@ -31,4 +31,7 @@ export default {
   getObtenerMicaCompleta(id) {
     return cliente.get(`/modelos/obtenerMicaCompleta/${id}`);
   },
+  getObtenerMicaPrivacidad(id) {
+    return cliente.get(`/modelos/obtenerMicaPrivacidad/${id}`);
+  },
 };

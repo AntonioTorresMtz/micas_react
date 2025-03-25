@@ -10,6 +10,7 @@ const Home = () => {
   const [selectedModelo, setSelectedModelo] = useState("");
   const [micas9h, setMicas9h] = useState([]);
   const [micas9d, setMicas9d] = useState([]);
+  const [micas100d, setMicas100d] = useState([]);
   const [contBusqueda, setContBusqueda] = useState(false);
 
   const obtenerMarcas = async () => {
@@ -55,7 +56,16 @@ const Home = () => {
       } else {
         setMicas9d(1);
       }
-      console.log(micas9h);
+      console.log(micas9d);
+    } catch (error) {
+      console.error("Error al cargar los datos", error.response.data);
+    }
+  };
+
+  const obtenerMicasPrivacidad = async (modelo) => {
+    try {
+      const response = await catalogo.getObtenerMicaPrivacidad(modelo);
+      setMicas100d(response.data.data);
     } catch (error) {
       console.error("Error al cargar los datos", error.response.data);
     }
@@ -69,6 +79,7 @@ const Home = () => {
     if (selectedModelo) {
       obtenerMicasNormales(selectedModelo);
       obtenerMicasCompletas(selectedModelo);
+      obtenerMicasPrivacidad(selectedModelo);
     }
   }, [selectedModelo]);
 
@@ -127,6 +138,11 @@ const Home = () => {
             </CardMicasHome>
             <CardMicasHome infoMicas={micas9d.length > 0 ? micas9d[0] : null}>
               Micas Completas
+            </CardMicasHome>
+            <CardMicasHome
+              infoMicas={micas100d.length > 0 ? micas100d[0] : null}
+            >
+              Micas Privacidad
             </CardMicasHome>
           </>
         )}

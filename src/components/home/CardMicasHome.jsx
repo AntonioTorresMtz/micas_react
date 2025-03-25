@@ -4,7 +4,7 @@ const CardMicasHome = ({ infoMicas, children }) => {
   console.log("Valor de infoMicas:", infoMicas); // Depuración
 
   return (
-    <div className="w-full md:w-[48%] lg:w-[32%] bg-white border border-gray-200 rounded-xl shadow-sm">
+    <div className="w-full md:w-[48%] lg:w-[32%] bg-white border border-gray-200 rounded-xl shadow-sm mt-4">
       {infoMicas && Object.keys(infoMicas).length > 0 ? (
         <>
           <div className="w-full bg-gray-200 text-center p-3 rounded-t-xl">
@@ -15,11 +15,13 @@ const CardMicasHome = ({ infoMicas, children }) => {
             <p>Posición: {infoMicas.nombre}</p>
             <p>Cantidad: {infoMicas.cantidad}</p>
           </div>
-          <div className="w-full flex flex-wrap flex-row p-3">
-            <p>
-              Medidas: {infoMicas.ancho} x {infoMicas.largo}
-            </p>
-          </div>
+          {infoMicas.ancho && (
+            <div className="w-full flex flex-wrap flex-row p-3">
+              <p>
+                Medidas: {infoMicas.ancho} x {infoMicas.largo}
+              </p>
+            </div>
+          )}
           <hr className="border-t-1 border-gray-300 my-4" />
           <div className="w-full flex flex-wrap flex-row p-3">
             <p>Notas: {infoMicas.notas}</p>
