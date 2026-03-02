@@ -34,4 +34,7 @@ export default {
   getObtenerMicaPrivacidad(id) {
     return cliente.get(`/modelos/obtenerMicaPrivacidad/${id}`);
   },
+  getObtenerProtector(id) {
+    return cliente.get(`/modelos/obtenerProtector/${id}`);
+  },
 };

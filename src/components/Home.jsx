@@ -2,6 +2,7 @@ import React, { useState, useEffect, use } from "react";
 import catalogo from "../servicios/catalogo";
 import FormSelect from "./Formularios/FormSelect";
 import CardMicasHome from "./home/CardMicasHome";
+import CardProtectoresHome from "./home/CardProtectoresHome";
 
 const Home = () => {
   const [marcas, setMarcas] = useState([]);
@@ -11,6 +12,7 @@ const Home = () => {
   const [micas9h, setMicas9h] = useState([]);
   const [micas9d, setMicas9d] = useState([]);
   const [micas100d, setMicas100d] = useState([]);
+  const [protectores, setProtectores] = useState([]);
   const [contBusqueda, setContBusqueda] = useState(false);
 
   const obtenerMarcas = async () => {
@@ -71,6 +73,15 @@ const Home = () => {
     }
   };
 
+  const obtenerProtectores = async (modelo) => {
+    try {
+      const response = await catalogo.getObtenerProtector(modelo);
+      setProtectores(response.data.data);
+    } catch (error) {
+      console.error("Error al cargar los datos", error.response.data);
+    }
+  };
+
   useEffect(() => {
     obtenerMarcas(); // Llamar la función
   }, []);
@@ -80,6 +91,7 @@ const Home = () => {
       obtenerMicasNormales(selectedModelo);
       obtenerMicasCompletas(selectedModelo);
       obtenerMicasPrivacidad(selectedModelo);
+      obtenerProtectores(selectedModelo);
     }
   }, [selectedModelo]);
 
@@ -139,6 +151,11 @@ const Home = () => {
             <CardMicasHome infoMicas={micas9d.length > 0 ? micas9d[0] : null}>
               Micas Completas
             </CardMicasHome>
+            <CardProtectoresHome
+              infoProtectores={protectores.length > 0 ? protectores[0] : null}
+            >
+              Protectores
+            </CardProtectoresHome>
             <CardMicasHome
               infoMicas={micas100d.length > 0 ? micas100d[0] : null}
             >
